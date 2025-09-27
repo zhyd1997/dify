@@ -8,13 +8,13 @@ import Button from '@/app/components/base/button'
 import { LinkExternal02 } from '@/app/components/base/icons/src/vender/line/general'
 import { IS_CE_EDITION } from '@/config'
 import { useProviderContext } from '@/context/provider-context'
-import { useModalContext } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 
 const APIKeyInfoPanel: FC = () => {
   const isCloud = !IS_CE_EDITION
 
   const { isAPIKeySet } = useProviderContext()
-  const { setShowAccountSettingModal } = useModalContext()
+  const setShowAccountSettingModal = useAccountModalDispatch(dispatch => dispatch.setShowAccountSettingModal)
 
   const { t } = useTranslation()
 

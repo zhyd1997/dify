@@ -40,7 +40,7 @@ import {
   updateBuiltInToolCredential,
   updateCustomCollection,
 } from '@/service/tools'
-import { useModalContext } from '@/context/modal-context'
+import { useModelModalDispatch } from '@/context/modal-context'
 import { useProviderContext } from '@/context/provider-context'
 import { ConfigurationMethodEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
 import Loading from '@/app/components/base/loading'
@@ -72,7 +72,7 @@ const ProviderDetail = ({
 
   // built in provider
   const [showSettingAuth, setShowSettingAuth] = useState(false)
-  const { setShowModelModal } = useModalContext()
+  const setShowModelModal = useModelModalDispatch(dispatch => dispatch.setShowModelModal)
   const { modelProviders: providers } = useProviderContext()
   const showSettingAuthModal = () => {
     if (isModel) {

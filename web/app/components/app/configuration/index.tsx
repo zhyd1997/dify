@@ -51,7 +51,7 @@ import { AgentStrategy, AppType, ModelModeType, RETRIEVE_TYPE, Resolution, Trans
 import { PromptMode } from '@/models/debug'
 import { ANNOTATION_DEFAULT, DATASET_DEFAULT, DEFAULT_AGENT_SETTING, DEFAULT_CHAT_PROMPT_CONFIG, DEFAULT_COMPLETION_PROMPT_CONFIG } from '@/config'
 import SelectDataSet from '@/app/components/app/configuration/dataset-config/select-dataset'
-import { useModalContext } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 import useBreakpoints, { MediaType } from '@/hooks/use-breakpoints'
 import Drawer from '@/app/components/base/drawer'
 import ModelParameterModal from '@/app/components/header/account-setting/model-provider-page/model-parameter-modal'
@@ -104,7 +104,7 @@ const Configuration: FC = () => {
 
   const latestPublishedAt = useMemo(() => appDetail?.model_config?.updated_at, [appDetail])
   const [formattingChanged, setFormattingChanged] = useState(false)
-  const { setShowAccountSettingModal } = useModalContext()
+  const setShowAccountSettingModal = useAccountModalDispatch(dispatch => dispatch.setShowAccountSettingModal)
   const [hasFetchedDetail, setHasFetchedDetail] = useState(false)
   const isLoading = !hasFetchedDetail
   const pathname = usePathname()

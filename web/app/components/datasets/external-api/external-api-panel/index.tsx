@@ -11,7 +11,7 @@ import { useExternalKnowledgeApi } from '@/context/external-knowledge-api-contex
 import ActionButton from '@/app/components/base/action-button'
 import Button from '@/app/components/base/button'
 import Loading from '@/app/components/base/loading'
-import { useModalContext } from '@/context/modal-context'
+import { useDataModalDispatch } from '@/context/modal-context'
 import { useDocLink } from '@/context/i18n'
 
 type ExternalAPIPanelProps = {
@@ -21,7 +21,7 @@ type ExternalAPIPanelProps = {
 const ExternalAPIPanel: React.FC<ExternalAPIPanelProps> = ({ onClose }) => {
   const { t } = useTranslation()
   const docLink = useDocLink()
-  const { setShowExternalKnowledgeAPIModal } = useModalContext()
+  const setShowExternalKnowledgeAPIModal = useDataModalDispatch(dispatch => dispatch.setShowExternalKnowledgeAPIModal)
   const { externalKnowledgeApiList, mutateExternalKnowledgeApis, isLoading } = useExternalKnowledgeApi()
 
   const handleOpenExternalAPIModal = () => {

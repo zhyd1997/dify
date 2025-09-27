@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import PremiumBadge from '../../base/premium-badge'
 import Button from '@/app/components/base/button'
 import { SparklesSoft } from '@/app/components/base/icons/src/public/common'
-import { useModalContext } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 
 type Props = {
   className?: string
@@ -24,12 +24,12 @@ const UpgradeBtn: FC<Props> = ({
   loc,
 }) => {
   const { t } = useTranslation()
-  const { setShowPricingModal } = useModalContext()
+  const setShowPricingModal = useAccountModalDispatch(dispatch => dispatch.setShowPricingModal)
   const handleClick = () => {
     if (_onClick)
       _onClick()
     else
-      (setShowPricingModal as any)()
+      setShowPricingModal()
   }
   const onClick = () => {
     handleClick()

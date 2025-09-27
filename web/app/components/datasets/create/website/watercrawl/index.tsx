@@ -8,7 +8,7 @@ import CrawledResult from '../base/crawled-result'
 import Crawling from '../base/crawling'
 import ErrorMessage from '../base/error-message'
 import Options from './options'
-import { useModalContext } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 import type { CrawlOptions, CrawlResultItem } from '@/models/datasets'
 import Toast from '@/app/components/base/toast'
 import { checkWatercrawlTaskStatus, createWatercrawlTask } from '@/service/datasets'
@@ -48,7 +48,7 @@ const WaterCrawl: FC<Props> = ({
     if (step !== Step.init)
       setControlFoldOptions(Date.now())
   }, [step])
-  const { setShowAccountSettingModal } = useModalContext()
+  const setShowAccountSettingModal = useAccountModalDispatch(dispatch => dispatch.setShowAccountSettingModal)
   const handleSetting = useCallback(() => {
     setShowAccountSettingModal({
       payload: 'data-source',

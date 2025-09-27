@@ -3,12 +3,12 @@ import CustomWebAppBrand from '../custom-web-app-brand'
 import { useProviderContext } from '@/context/provider-context'
 import { Plan } from '@/app/components/billing/type'
 import { contactSalesUrl } from '@/app/components/billing/config'
-import { useModalContext } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 
 const CustomPage = () => {
   const { t } = useTranslation()
   const { plan, enableBilling } = useProviderContext()
-  const { setShowPricingModal } = useModalContext()
+  const setShowPricingModal = useAccountModalDispatch(dispatch => dispatch.setShowPricingModal)
   const showBillingTip = enableBilling && plan.type === Plan.sandbox
   const showContact = enableBilling && (plan.type === Plan.professional || plan.type === Plan.team)
 

@@ -14,7 +14,7 @@ import { ModelFeatureEnum } from '../declarations'
 import { useLanguage } from '../hooks'
 import PopupItem from './popup-item'
 import { XCircle } from '@/app/components/base/icons/src/vender/solid/general'
-import { useModalContext } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 import { supportFunctionCall } from '@/utils/tool-call'
 import { tooltipManager } from '@/app/components/base/tooltip/TooltipManager'
 
@@ -35,7 +35,7 @@ const Popup: FC<PopupProps> = ({
   const { t } = useTranslation()
   const language = useLanguage()
   const [searchText, setSearchText] = useState('')
-  const { setShowAccountSettingModal } = useModalContext()
+  const setShowAccountSettingModal = useAccountModalDispatch(dispatch => dispatch.setShowAccountSettingModal)
   const scrollRef = useRef<HTMLDivElement>(null)
 
   // Close any open tooltips when the user scrolls to prevent them from appearing

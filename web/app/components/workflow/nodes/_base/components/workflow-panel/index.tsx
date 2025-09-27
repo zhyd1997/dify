@@ -72,7 +72,7 @@ import { AuthCategory } from '@/app/components/plugins/plugin-auth'
 import { canFindTool } from '@/utils'
 import type { CustomRunFormProps } from '@/app/components/workflow/nodes/data-source/types'
 import { DataSourceClassification } from '@/app/components/workflow/nodes/data-source/types'
-import { useModalContext } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 import DataSourceBeforeRunForm from '@/app/components/workflow/nodes/data-source/before-run-form'
 import useInspectVarsCrud from '@/app/components/workflow/hooks/use-inspect-vars-crud'
 
@@ -279,7 +279,7 @@ const BasePanel: FC<BasePanelProps> = ({
       },
     })
   }, [handleNodeDataUpdateWithSyncDraft, id])
-  const { setShowAccountSettingModal } = useModalContext()
+  const setShowAccountSettingModal = useAccountModalDispatch(dispatch => dispatch.setShowAccountSettingModal)
   const handleJumpToDataSourcePage = useCallback(() => {
     setShowAccountSettingModal({ payload: 'data-source' })
   }, [setShowAccountSettingModal])

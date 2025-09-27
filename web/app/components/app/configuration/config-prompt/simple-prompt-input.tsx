@@ -17,7 +17,7 @@ import type { GenRes } from '@/service/debug'
 import GetAutomaticResModal from '@/app/components/app/configuration/config/automatic/get-automatic-res'
 import PromptEditor from '@/app/components/base/prompt-editor'
 import ConfigContext from '@/context/debug-configuration'
-import { useModalContext } from '@/context/modal-context'
+import { useDataModalDispatch } from '@/context/modal-context'
 import type { ExternalDataTool } from '@/models/common'
 import { useToastContext } from '@/app/components/base/toast'
 import { useEventEmitterContextContext } from '@/context/event-emitter'
@@ -72,7 +72,7 @@ const Prompt: FC<ISimplePromptInput> = ({
     externalDataToolsConfig,
   } = useContext(ConfigContext)
   const { notify } = useToastContext()
-  const { setShowExternalDataToolModal } = useModalContext()
+  const setShowExternalDataToolModal = useDataModalDispatch(dispatch => dispatch.setShowExternalDataToolModal)
   const handleOpenExternalDataToolModal = () => {
     setShowExternalDataToolModal({
       payload: {},

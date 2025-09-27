@@ -15,7 +15,7 @@ import Tooltip from '../../base/tooltip'
 import cn from '@/utils/classnames'
 import { useProviderContext } from '@/context/provider-context'
 import { Plan } from '@/app/components/billing/type'
-import { useModalContext } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 import { getDocDownloadUrl } from '@/service/common'
 
 enum DocName {
@@ -31,7 +31,8 @@ type UpgradeOrDownloadProps = {
 const UpgradeOrDownload: FC<UpgradeOrDownloadProps> = ({ doc_name }) => {
   const { t } = useTranslation()
   const { plan } = useProviderContext()
-  const { setShowPricingModal, setShowAccountSettingModal } = useModalContext()
+  const setShowPricingModal = useAccountModalDispatch(dispatch => dispatch.setShowPricingModal)
+  const setShowAccountSettingModal = useAccountModalDispatch(dispatch => dispatch.setShowAccountSettingModal)
   const isFreePlan = plan.type === Plan.sandbox
 
   const handlePlanClick = useCallback(() => {

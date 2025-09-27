@@ -26,7 +26,7 @@ import PromptEditor from '@/app/components/base/prompt-editor'
 import ConfigContext from '@/context/debug-configuration'
 import { getNewVar, getVars } from '@/utils/var'
 import { AppType } from '@/types/app'
-import { useModalContext } from '@/context/modal-context'
+import { useDataModalDispatch } from '@/context/modal-context'
 import type { ExternalDataTool } from '@/models/common'
 import { useToastContext } from '@/app/components/base/toast'
 import { useEventEmitterContextContext } from '@/context/event-emitter'
@@ -74,7 +74,7 @@ const AdvancedPromptInput: FC<Props> = ({
     externalDataToolsConfig,
   } = useContext(ConfigContext)
   const { notify } = useToastContext()
-  const { setShowExternalDataToolModal } = useModalContext()
+  const setShowExternalDataToolModal = useDataModalDispatch(dispatch => dispatch.setShowExternalDataToolModal)
   const handleOpenExternalDataToolModal = () => {
     setShowExternalDataToolModal({
       payload: {},

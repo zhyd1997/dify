@@ -12,7 +12,7 @@ import Confirm from '../../base/confirm'
 import { uninstallPlugin } from '@/service/plugins'
 import { useGitHubReleases } from '../install-plugin/hooks'
 import Toast from '@/app/components/base/toast'
-import { useModalContext } from '@/context/modal-context'
+import { useUIModalDispatch } from '@/context/modal-context'
 import { useInvalidateInstalledPluginList } from '@/service/use-plugins'
 import type { PluginType } from '@/app/components/plugins/types'
 
@@ -53,7 +53,7 @@ const Action: FC<Props> = ({
     setFalse: hideDeleting,
   }] = useBoolean(false)
   const { checkForUpdates, fetchReleases } = useGitHubReleases()
-  const { setShowUpdatePluginModal } = useModalContext()
+  const setShowUpdatePluginModal = useUIModalDispatch(dispatch => dispatch.setShowUpdatePluginModal)
   const invalidateInstalledPluginList = useInvalidateInstalledPluginList()
 
   const handleFetchNewVersion = async () => {

@@ -21,7 +21,7 @@ import { useToastContext } from '@/app/components/base/toast'
 import { languages } from '@/i18n-config/language'
 import Tooltip from '@/app/components/base/tooltip'
 import { useProviderContext } from '@/context/provider-context'
-import { useModalContext } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 import type { AppIconSelection } from '@/app/components/base/app-icon-picker'
 import AppIconPicker from '@/app/components/base/app-icon-picker'
 import cn from '@/utils/classnames'
@@ -107,7 +107,8 @@ const SettingsModal: FC<ISettingsModalProps> = ({
   )
 
   const { enableBilling, plan, webappCopyrightEnabled } = useProviderContext()
-  const { setShowPricingModal, setShowAccountSettingModal } = useModalContext()
+  const setShowPricingModal = useAccountModalDispatch(dispatch => dispatch.setShowPricingModal)
+  const setShowAccountSettingModal = useAccountModalDispatch(dispatch => dispatch.setShowAccountSettingModal)
   const isFreePlan = plan.type === 'sandbox'
   const handlePlanClick = useCallback(() => {
     if (isFreePlan)

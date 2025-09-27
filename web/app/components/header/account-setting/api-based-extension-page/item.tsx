@@ -7,7 +7,7 @@ import {
 } from '@remixicon/react'
 import Button from '@/app/components/base/button'
 import type { ApiBasedExtension } from '@/models/common'
-import { useModalContext } from '@/context/modal-context'
+import { useUIModalDispatch } from '@/context/modal-context'
 import { deleteApiBasedExtension } from '@/service/common'
 import Confirm from '@/app/components/base/confirm'
 
@@ -20,7 +20,7 @@ const Item: FC<ItemProps> = ({
   onUpdate,
 }) => {
   const { t } = useTranslation()
-  const { setShowApiBasedExtensionModal } = useModalContext()
+  const setShowApiBasedExtensionModal = useUIModalDispatch(dispatch => dispatch.setShowApiBasedExtensionModal)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
 
   const handleOpenApiBasedExtensionModal = () => {

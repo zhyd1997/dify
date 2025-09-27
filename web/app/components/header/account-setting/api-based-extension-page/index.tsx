@@ -6,12 +6,12 @@ import {
 import Item from './item'
 import Empty from './empty'
 import Button from '@/app/components/base/button'
-import { useModalContext } from '@/context/modal-context'
+import { useUIModalDispatch } from '@/context/modal-context'
 import { fetchApiBasedExtensionList } from '@/service/common'
 
 const ApiBasedExtensionPage = () => {
   const { t } = useTranslation()
-  const { setShowApiBasedExtensionModal } = useModalContext()
+  const setShowApiBasedExtensionModal = useUIModalDispatch(dispatch => dispatch.setShowApiBasedExtensionModal)
   const { data, mutate, isLoading } = useSWR(
     '/api-based-extension',
     fetchApiBasedExtensionList,

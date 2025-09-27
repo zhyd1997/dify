@@ -8,7 +8,7 @@ import Firecrawl from './firecrawl'
 import Watercrawl from './watercrawl'
 import JinaReader from './jina-reader'
 import cn from '@/utils/classnames'
-import { useModalContext } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 import type { CrawlOptions, CrawlResultItem } from '@/models/datasets'
 import { DataSourceProvider } from '@/models/common'
 import { ENABLE_WEBSITE_FIRECRAWL, ENABLE_WEBSITE_JINAREADER, ENABLE_WEBSITE_WATERCRAWL } from '@/config'
@@ -36,7 +36,7 @@ const Website: FC<Props> = ({
   authedDataSourceList,
 }) => {
   const { t } = useTranslation()
-  const { setShowAccountSettingModal } = useModalContext()
+  const setShowAccountSettingModal = useAccountModalDispatch(dispatch => dispatch.setShowAccountSettingModal)
   const [selectedProvider, setSelectedProvider] = useState<DataSourceProvider>(DataSourceProvider.jinaReader)
 
   const availableProviders = useMemo(() => authedDataSourceList.filter((item) => {

@@ -30,7 +30,7 @@ import { BoxSparkleFill } from '@/app/components/base/icons/src/vender/plugin'
 import { Github } from '@/app/components/base/icons/src/public/common'
 import { uninstallPlugin } from '@/service/plugins'
 import { useGetLanguage, useI18N } from '@/context/i18n'
-import { useModalContext } from '@/context/modal-context'
+import { useUIModalDispatch } from '@/context/modal-context'
 import { useProviderContext } from '@/context/provider-context'
 import { useInvalidateAllToolProviders } from '@/service/use-tools'
 import { API_PREFIX } from '@/config'
@@ -67,7 +67,7 @@ const DetailHeader = ({
   const locale = useGetLanguage()
   const { locale: currentLocale } = useI18N()
   const { checkForUpdates, fetchReleases } = useGitHubReleases()
-  const { setShowUpdatePluginModal } = useModalContext()
+  const setShowUpdatePluginModal = useUIModalDispatch(dispatch => dispatch.setShowUpdatePluginModal)
   const { refreshModelProviders } = useProviderContext()
   const invalidateAllToolProviders = useInvalidateAllToolProviders()
   const { enable_marketplace } = useGlobalPublicStore(s => s.systemFeatures)

@@ -33,7 +33,7 @@ import {
   ModelStatusEnum,
 } from '../declarations'
 import { Check } from '@/app/components/base/icons/src/vender/line/general'
-import { useModalContext } from '@/context/modal-context'
+import { useModelModalDispatch } from '@/context/modal-context'
 import { useProviderContext } from '@/context/provider-context'
 import Tooltip from '@/app/components/base/tooltip'
 import cn from '@/utils/classnames'
@@ -50,7 +50,7 @@ const PopupItem: FC<PopupItemProps> = ({
 }) => {
   const { t } = useTranslation()
   const language = useLanguage()
-  const { setShowModelModal } = useModalContext()
+  const setShowModelModal = useModelModalDispatch(dispatch => dispatch.setShowModelModal)
   const { modelProviders } = useProviderContext()
   const updateModelList = useUpdateModelList()
   const updateModelProviders = useUpdateModelProviders()

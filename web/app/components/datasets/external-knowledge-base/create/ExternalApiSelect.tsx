@@ -6,7 +6,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/navigation'
 import { ApiConnectionMod } from '@/app/components/base/icons/src/vender/solid/development'
-import { useModalContext } from '@/context/modal-context'
+import { useDataModalDispatch } from '@/context/modal-context'
 import { useExternalKnowledgeApi } from '@/context/external-knowledge-api-context'
 
 type ApiItem = {
@@ -27,7 +27,7 @@ const ExternalApiSelect: React.FC<ExternalApiSelectProps> = ({ items, value, onS
   const [selectedItem, setSelectedItem] = useState<ApiItem | null>(
     items.find(item => item.value === value) || null,
   )
-  const { setShowExternalKnowledgeAPIModal } = useModalContext()
+  const setShowExternalKnowledgeAPIModal = useDataModalDispatch(dispatch => dispatch.setShowExternalKnowledgeAPIModal)
   const { mutateExternalKnowledgeApis } = useExternalKnowledgeApi()
   const router = useRouter()
 

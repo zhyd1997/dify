@@ -14,7 +14,7 @@ import {
 import {
   ArrowUpRight,
 } from '@/app/components/base/icons/src/vender/line/arrows'
-import { useModalContext } from '@/context/modal-context'
+import { useAccountModalDispatch, useUIModalDispatch } from '@/context/modal-context'
 import { fetchApiBasedExtensionList } from '@/service/common'
 
 type ApiBasedExtensionSelectorProps = {
@@ -28,10 +28,8 @@ const ApiBasedExtensionSelector: FC<ApiBasedExtensionSelectorProps> = ({
 }) => {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
-  const {
-    setShowAccountSettingModal,
-    setShowApiBasedExtensionModal,
-  } = useModalContext()
+  const setShowAccountSettingModal = useAccountModalDispatch(dispatch => dispatch.setShowAccountSettingModal)
+  const setShowApiBasedExtensionModal = useUIModalDispatch(dispatch => dispatch.setShowApiBasedExtensionModal)
   const { data, mutate } = useSWR(
     '/api-based-extension',
     fetchApiBasedExtensionList,

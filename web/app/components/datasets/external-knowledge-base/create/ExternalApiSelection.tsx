@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation'
 import ExternalApiSelect from './ExternalApiSelect'
 import Input from '@/app/components/base/input'
 import Button from '@/app/components/base/button'
-import { useModalContext } from '@/context/modal-context'
+import { useDataModalDispatch } from '@/context/modal-context'
 import { useExternalKnowledgeApi } from '@/context/external-knowledge-api-context'
 
 type ExternalApiSelectionProps = {
@@ -21,7 +21,7 @@ const ExternalApiSelection: React.FC<ExternalApiSelectionProps> = ({ external_kn
   const router = useRouter()
   const { externalKnowledgeApiList } = useExternalKnowledgeApi()
   const [selectedApiId, setSelectedApiId] = useState(external_knowledge_api_id)
-  const { setShowExternalKnowledgeAPIModal } = useModalContext()
+  const setShowExternalKnowledgeAPIModal = useDataModalDispatch(dispatch => dispatch.setShowExternalKnowledgeAPIModal)
   const { mutateExternalKnowledgeApis } = useExternalKnowledgeApi()
 
   const apiItems = externalKnowledgeApiList.map(api => ({
