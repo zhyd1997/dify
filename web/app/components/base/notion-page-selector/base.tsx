@@ -4,7 +4,7 @@ import WorkspaceSelector from './credential-selector'
 import SearchInput from './search-input'
 import PageSelector from './page-selector'
 import type { DataSourceNotionPageMap, DataSourceNotionWorkspace, NotionPage } from '@/models/common'
-import { useModalContextSelector } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 import NotionConnector from '../notion-connector'
 import { useInvalidPreImportNotionPages, usePreImportNotionPages } from '@/service/knowledge/use-import'
 import Header from '../../datasets/create/website/base/header'
@@ -33,7 +33,7 @@ const NotionPageSelector = ({
   onSelectCredential,
 }: NotionPageSelectorProps) => {
   const [searchValue, setSearchValue] = useState('')
-  const setShowAccountSettingModal = useModalContextSelector(s => s.setShowAccountSettingModal)
+  const setShowAccountSettingModal = useAccountModalDispatch(dispatch => dispatch.setShowAccountSettingModal)
 
   const invalidPreImportNotionPages = useInvalidPreImportNotionPages()
 

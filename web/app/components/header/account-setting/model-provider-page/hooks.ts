@@ -37,7 +37,7 @@ import {
 import type { Plugin } from '@/app/components/plugins/types'
 import { PluginType } from '@/app/components/plugins/types'
 import { getMarketplacePluginsByCollectionId } from '@/app/components/plugins/marketplace/utils'
-import { useModalContextSelector } from '@/context/modal-context'
+import { useModelModalDispatch } from '@/context/modal-context'
 import { useEventEmitterContextContext } from '@/context/event-emitter'
 import { UPDATE_MODEL_PROVIDER_CUSTOM_MODEL_LIST } from './provider-added-card'
 
@@ -348,7 +348,7 @@ export const useRefreshModel = () => {
 }
 
 export const useModelModalHandler = () => {
-  const setShowModelModal = useModalContextSelector(state => state.setShowModelModal)
+  const setShowModelModal = useModelModalDispatch(dispatch => dispatch.setShowModelModal)
 
   return (
     provider: ModelProvider,

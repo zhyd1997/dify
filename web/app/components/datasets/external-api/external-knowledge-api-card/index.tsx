@@ -9,7 +9,7 @@ import type { ExternalAPIItem } from '@/models/datasets'
 import { checkUsageExternalAPI, deleteExternalAPI, fetchExternalAPI, updateExternalAPI } from '@/service/datasets'
 import { ApiConnectionMod } from '@/app/components/base/icons/src/vender/solid/development'
 import { useExternalKnowledgeApi } from '@/context/external-knowledge-api-context'
-import { useModalContext } from '@/context/modal-context'
+import { useDataModalDispatch } from '@/context/modal-context'
 import ActionButton from '@/app/components/base/action-button'
 import Confirm from '@/app/components/base/confirm'
 
@@ -18,7 +18,7 @@ type ExternalKnowledgeAPICardProps = {
 }
 
 const ExternalKnowledgeAPICard: React.FC<ExternalKnowledgeAPICardProps> = ({ api }) => {
-  const { setShowExternalKnowledgeAPIModal } = useModalContext()
+  const setShowExternalKnowledgeAPIModal = useDataModalDispatch(dispatch => dispatch.setShowExternalKnowledgeAPIModal)
   const [showConfirm, setShowConfirm] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [usageCount, setUsageCount] = useState(0)

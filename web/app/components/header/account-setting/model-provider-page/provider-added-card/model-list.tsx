@@ -14,7 +14,7 @@ import {
 } from '../declarations'
 // import Tab from './tab'
 import ModelListItem from './model-list-item'
-import { useModalContextSelector } from '@/context/modal-context'
+import { useModelModalDispatch } from '@/context/modal-context'
 import { useAppContext } from '@/context/app-context'
 import {
   AddCustomModel,
@@ -37,7 +37,7 @@ const ModelList: FC<ModelListProps> = ({
   const configurativeMethods = provider.configurate_methods.filter(method => method !== ConfigurationMethodEnum.fetchFromRemote)
   const { isCurrentWorkspaceManager } = useAppContext()
   const isConfigurable = configurativeMethods.includes(ConfigurationMethodEnum.customizableModel)
-  const setShowModelLoadBalancingModal = useModalContextSelector(state => state.setShowModelLoadBalancingModal)
+  const setShowModelLoadBalancingModal = useModelModalDispatch(dispatch => dispatch.setShowModelLoadBalancingModal)
   const onModifyLoadBalancing = useCallback((model: ModelItem, credential?: Credential) => {
     setShowModelLoadBalancingModal({
       provider,

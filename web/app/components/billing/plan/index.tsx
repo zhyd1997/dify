@@ -20,7 +20,7 @@ import UsageInfo from '@/app/components/billing/usage-info'
 import VerifyStateModal from '@/app/education-apply/verify-state-modal'
 import { EDUCATION_VERIFYING_LOCALSTORAGE_ITEM } from '@/app/education-apply/constants'
 import { useEducationVerify } from '@/service/use-education'
-import { useModalContextSelector } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 import { Enterprise, Professional, Sandbox, Team } from './assets'
 
 type Props = {
@@ -46,7 +46,7 @@ const PlanComp: FC<Props> = ({
 
   const [showModal, setShowModal] = React.useState(false)
   const { mutateAsync } = useEducationVerify()
-  const setShowAccountSettingModal = useModalContextSelector(s => s.setShowAccountSettingModal)
+  const setShowAccountSettingModal = useAccountModalDispatch(dispatch => dispatch.setShowAccountSettingModal)
   const handleVerify = () => {
     mutateAsync().then((res) => {
       localStorage.removeItem(EDUCATION_VERIFYING_LOCALSTORAGE_ITEM)

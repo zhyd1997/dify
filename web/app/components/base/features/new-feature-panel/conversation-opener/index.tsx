@@ -8,7 +8,7 @@ import Button from '@/app/components/base/button'
 import { useFeatures, useFeaturesStore } from '@/app/components/base/features/hooks'
 import type { OnFeaturesChange } from '@/app/components/base/features/types'
 import { FeatureEnum } from '@/app/components/base/features/types'
-import { useModalContext } from '@/context/modal-context'
+import { useUIModalDispatch } from '@/context/modal-context'
 import type { PromptVariable } from '@/models/debug'
 import type { InputVar } from '@/app/components/workflow/types'
 
@@ -28,7 +28,7 @@ const ConversationOpener = ({
   onAutoAddPromptVariable,
 }: Props) => {
   const { t } = useTranslation()
-  const { setShowOpeningModal } = useModalContext()
+  const setShowOpeningModal = useUIModalDispatch(dispatch => dispatch.setShowOpeningModal)
   const opening = useFeatures(s => s.features.opening)
   const featuresStore = useFeaturesStore()
   const [isHovering, setIsHovering] = useState(false)

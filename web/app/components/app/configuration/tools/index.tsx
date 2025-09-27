@@ -15,7 +15,7 @@ import { Tool03 } from '@/app/components/base/icons/src/vender/solid/general'
 import {
   Settings01,
 } from '@/app/components/base/icons/src/vender/line/general'
-import { useModalContext } from '@/context/modal-context'
+import { useDataModalDispatch } from '@/context/modal-context'
 import type { ExternalDataTool } from '@/models/common'
 import AppIcon from '@/app/components/base/app-icon'
 import { useToastContext } from '@/app/components/base/toast'
@@ -23,7 +23,7 @@ import { useToastContext } from '@/app/components/base/toast'
 const Tools = () => {
   const { t } = useTranslation()
   const { notify } = useToastContext()
-  const { setShowExternalDataToolModal } = useModalContext()
+  const setShowExternalDataToolModal = useDataModalDispatch(dispatch => dispatch.setShowExternalDataToolModal)
   const {
     externalDataToolsConfig,
     setExternalDataToolsConfig,
@@ -76,7 +76,7 @@ const Tools = () => {
   const handleOpenExternalDataToolModal = (payload: ExternalDataTool, index: number) => {
     setShowExternalDataToolModal({
       payload,
-      onSaveCallback: (externalDataTool: ExternalDataTool) => handleSaveExternalDataToolModal(externalDataTool, index),
+      onSaveCallback: (externalDataTool?: ExternalDataTool) => handleSaveExternalDataToolModal(externalDataTool!, index),
       onValidateBeforeSaveCallback: (newExternalDataTool: ExternalDataTool) => handleValidateBeforeSaveExternalDataToolModal(newExternalDataTool, index),
     })
   }

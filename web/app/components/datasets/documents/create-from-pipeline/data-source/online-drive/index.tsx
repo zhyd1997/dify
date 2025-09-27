@@ -12,7 +12,7 @@ import { useDataSourceStore, useDataSourceStoreWithSelector } from '../store'
 import { convertOnlineDriveData } from './utils'
 import produce from 'immer'
 import { useShallow } from 'zustand/react/shallow'
-import { useModalContextSelector } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 import { useGetDataSourceAuth } from '@/service/use-datasource'
 import { useDocLink } from '@/context/i18n'
 
@@ -32,7 +32,7 @@ const OnlineDrive = ({
   const docLink = useDocLink()
   const [isInitialMount, setIsInitialMount] = useState(true)
   const pipelineId = useDatasetDetailContextWithSelector(s => s.dataset?.pipeline_id)
-  const setShowAccountSettingModal = useModalContextSelector(s => s.setShowAccountSettingModal)
+  const setShowAccountSettingModal = useAccountModalDispatch(dispatch => dispatch.setShowAccountSettingModal)
   const {
     nextPageParameters,
     breadcrumbs,

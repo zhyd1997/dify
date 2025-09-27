@@ -11,7 +11,7 @@ import type { DataSourceNodeCompletedResponse, DataSourceNodeErrorResponse } fro
 import type { DataSourceNodeType } from '@/app/components/workflow/nodes/data-source/types'
 import { useDataSourceStore, useDataSourceStoreWithSelector } from '../store'
 import { useShallow } from 'zustand/react/shallow'
-import { useModalContextSelector } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 import Title from './title'
 import { useGetDataSourceAuth } from '@/service/use-datasource'
 import Loading from '@/app/components/base/loading'
@@ -32,7 +32,7 @@ const OnlineDocuments = ({
 }: OnlineDocumentsProps) => {
   const docLink = useDocLink()
   const pipelineId = useDatasetDetailContextWithSelector(s => s.dataset?.pipeline_id)
-  const setShowAccountSettingModal = useModalContextSelector(s => s.setShowAccountSettingModal)
+  const setShowAccountSettingModal = useAccountModalDispatch(dispatch => dispatch.setShowAccountSettingModal)
   const {
     documentsData,
     searchValue,

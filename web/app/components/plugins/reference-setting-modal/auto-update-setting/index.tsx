@@ -14,7 +14,7 @@ import type { TriggerParams } from '@/app/components/base/date-and-time-picker/t
 import { RiTimeLine } from '@remixicon/react'
 import cn from '@/utils/classnames'
 import { convertTimezoneToOffsetStr } from '@/app/components/base/date-and-time-picker/utils/dayjs'
-import { useModalContextSelector } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 
 const i18nPrefix = 'plugin.autoUpdate'
 
@@ -28,7 +28,7 @@ const SettingTimeZone: FC<{
 }> = ({
   children,
 }) => {
-  const setShowAccountSettingModal = useModalContextSelector(s => s.setShowAccountSettingModal)
+  const setShowAccountSettingModal = useAccountModalDispatch(dispatch => dispatch.setShowAccountSettingModal)
   return (
     <span className='body-xs-regular cursor-pointer text-text-accent' onClick={() => setShowAccountSettingModal({ payload: 'language' })} >{children}</span>
   )

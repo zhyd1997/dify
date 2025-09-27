@@ -13,7 +13,7 @@ import {
   EDUCATION_VERIFY_URL_SEARCHPARAMS_ACTION,
 } from './constants'
 import { useEducationAutocomplete, useEducationVerify } from '@/service/use-education'
-import { useModalContextSelector } from '@/context/modal-context'
+import { useAccountModalDispatch, useUIModalDispatch } from '@/context/modal-context'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
@@ -132,9 +132,9 @@ const useEducationReverifyNotice = ({
 }
 
 export const useEducationInit = () => {
-  const setShowAccountSettingModal = useModalContextSelector(s => s.setShowAccountSettingModal)
-  const setShowPricingModal = useModalContextSelector(s => s.setShowPricingModal)
-  const setShowEducationExpireNoticeModal = useModalContextSelector(s => s.setShowEducationExpireNoticeModal)
+  const setShowAccountSettingModal = useAccountModalDispatch(dispatch => dispatch.setShowAccountSettingModal)
+  const setShowPricingModal = useAccountModalDispatch(dispatch => dispatch.setShowPricingModal)
+  const setShowEducationExpireNoticeModal = useUIModalDispatch(dispatch => dispatch.setShowEducationExpireNoticeModal)
   const educationVerifying = localStorage.getItem(EDUCATION_VERIFYING_LOCALSTORAGE_ITEM)
   const searchParams = useSearchParams()
   const educationVerifyAction = searchParams.get('action')

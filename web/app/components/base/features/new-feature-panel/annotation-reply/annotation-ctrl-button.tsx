@@ -11,7 +11,7 @@ import Tooltip from '@/app/components/base/tooltip'
 import { addAnnotation } from '@/service/annotation'
 import Toast from '@/app/components/base/toast'
 import { useProviderContext } from '@/context/provider-context'
-import { useModalContext } from '@/context/modal-context'
+import { useUIModalDispatch } from '@/context/modal-context'
 
 type Props = {
   appId: string
@@ -35,7 +35,7 @@ const AnnotationCtrlButton: FC<Props> = ({
   const { t } = useTranslation()
   const { plan, enableBilling } = useProviderContext()
   const isAnnotationFull = (enableBilling && plan.usage.annotatedResponse >= plan.total.annotatedResponse)
-  const { setShowAnnotationFullModal } = useModalContext()
+  const setShowAnnotationFullModal = useUIModalDispatch(dispatch => dispatch.setShowAnnotationFullModal)
   const handleAdd = async () => {
     if (isAnnotationFull) {
       setShowAnnotationFullModal()

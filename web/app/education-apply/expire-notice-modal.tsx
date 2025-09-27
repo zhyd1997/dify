@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { RiExternalLinkLine } from '@remixicon/react'
 import { SparklesSoftAccent } from '../components/base/icons/src/public/common'
 import useTimestamp from '@/hooks/use-timestamp'
-import { useModalContextSelector } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 import { useEducationVerify } from '@/service/use-education'
 import { useRouter } from 'next/navigation'
 
@@ -27,7 +27,7 @@ const ExpireNoticeModal: React.FC<Props> = ({ expireAt, expired, onClose }) => {
   const docLink = useDocLink()
   const eduDocLink = docLink('/getting-started/dify-for-education')
   const { formatTime } = useTimestamp()
-  const setShowPricingModal = useModalContextSelector(s => s.setShowPricingModal)
+  const setShowPricingModal = useAccountModalDispatch(dispatch => dispatch.setShowPricingModal)
   const { mutateAsync } = useEducationVerify()
   const router = useRouter()
   const handleVerify = async () => {

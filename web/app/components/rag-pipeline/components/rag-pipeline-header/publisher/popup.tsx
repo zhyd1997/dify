@@ -44,7 +44,7 @@ import { useProviderContext } from '@/context/provider-context'
 import classNames from '@/utils/classnames'
 import PremiumBadge from '@/app/components/base/premium-badge'
 import { SparklesSoft } from '@/app/components/base/icons/src/public/common'
-import { useModalContextSelector } from '@/context/modal-context'
+import { useAccountModalDispatch } from '@/context/modal-context'
 import Link from 'next/link'
 import { useDatasetApiAccessUrl } from '@/hooks/use-api-access-url'
 
@@ -65,7 +65,7 @@ const Popup = () => {
   const { notify } = useToastContext()
   const workflowStore = useWorkflowStore()
   const { isAllowPublishAsCustomKnowledgePipelineTemplate } = useProviderContext()
-  const setShowPricingModal = useModalContextSelector(s => s.setShowPricingModal)
+  const setShowPricingModal = useAccountModalDispatch(dispatch => dispatch.setShowPricingModal)
   const apiReferenceUrl = useDatasetApiAccessUrl()
 
   const [confirmVisible, {
