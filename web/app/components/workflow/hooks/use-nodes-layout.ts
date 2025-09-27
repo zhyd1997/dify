@@ -1,5 +1,4 @@
 import { useCallback } from 'react'
-import ELK from 'elkjs/lib/elk.bundled.js'
 import {
   useReactFlow,
   useStoreApi,
@@ -21,9 +20,18 @@ const layoutOptions = {
   'elk.layered.nodePlacement.strategy': 'SIMPLE',
 }
 
-const elk = new ELK()
+let elk: any = null
+
+const getElk = async () => {
+  if (!elk) {
+    const { default: ELK } = await import('elkjs/lib/elk.bundled.js')
+    elk = new ELK()
+  }
+  return elk
+}
 
 export const getLayoutedNodes = async (nodes: Node[], edges: Edge[]) => {
+  const elkInstance = await getElk()
   const graph = {
     id: 'root',
     layoutOptions,
@@ -39,10 +47,10 @@ export const getLayoutedNodes = async (nodes: Node[], edges: Edge[]) => {
     edges: cloneDeep(edges),
   }
 
-  const layoutedGraph = await elk.layout(graph as any)
+  const layoutedGraph = await elkInstance.layout(graph as any)
   const layoutedNodes = nodes.map((node) => {
     const layoutedNode = layoutedGraph.children?.find(
-      lgNode => lgNode.id === node.id,
+      (lgNode: any) => lgNode.id === node.id,
     )
 
     return {

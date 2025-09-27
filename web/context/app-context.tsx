@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import React from 'react'
 import useSWR from 'swr'
 import { createContext, useContext, useContextSelector } from 'use-context-selector'
 import type { FC, ReactNode } from 'react'
@@ -155,20 +156,33 @@ export const AppContextProvider: FC<AppContextProviderProps> = ({ children }) =>
   }, [currentWorkspace?.id])
   // #endregion Zendesk conversation fields
 
+  const appContextValue = useMemo(() => ({
+    userProfile,
+    mutateUserProfile,
+    langGeniusVersionInfo,
+    useSelector,
+    currentWorkspace,
+    isCurrentWorkspaceManager,
+    isCurrentWorkspaceOwner,
+    isCurrentWorkspaceEditor,
+    isCurrentWorkspaceDatasetOperator,
+    mutateCurrentWorkspace,
+    isLoadingCurrentWorkspace,
+  }), [
+    userProfile,
+    mutateUserProfile,
+    langGeniusVersionInfo,
+    currentWorkspace,
+    isCurrentWorkspaceManager,
+    isCurrentWorkspaceOwner,
+    isCurrentWorkspaceEditor,
+    isCurrentWorkspaceDatasetOperator,
+    mutateCurrentWorkspace,
+    isLoadingCurrentWorkspace,
+  ])
+
   return (
-    <AppContext.Provider value={{
-      userProfile,
-      mutateUserProfile,
-      langGeniusVersionInfo,
-      useSelector,
-      currentWorkspace,
-      isCurrentWorkspaceManager,
-      isCurrentWorkspaceOwner,
-      isCurrentWorkspaceEditor,
-      isCurrentWorkspaceDatasetOperator,
-      mutateCurrentWorkspace,
-      isLoadingCurrentWorkspace,
-    }}>
+    <AppContext.Provider value={appContextValue}>
       <div className='flex h-full flex-col overflow-y-auto'>
         {globalThis.document?.body?.getAttribute('data-public-maintenance-notice') && <MaintenanceNotice />}
         <div className='relative flex grow flex-col overflow-y-auto overflow-x-hidden bg-background-body'>

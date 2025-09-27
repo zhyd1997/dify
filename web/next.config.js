@@ -113,8 +113,34 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: [
       '@remixicon/react',
-      '@heroicons/react'
+      '@heroicons/react',
+      'katex',
+      'elkjs'
     ],
+    webpackBuildWorker: true,
+  },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.optimization.splitChunks = {
+        ...config.optimization.splitChunks,
+        cacheGroups: {
+          ...config.optimization.splitChunks.cacheGroups,
+          katex: {
+            name: 'katex',
+            test: /[\\/]node_modules[\\/](katex|rehype-katex)[\\/]/,
+            chunks: 'all',
+            priority: 30,
+          },
+          elk: {
+            name: 'elk',
+            test: /[\\/]node_modules[\\/]elkjs[\\/]/,
+            chunks: 'async',
+            priority: 30,
+          },
+        },
+      }
+    }
+    return config
   },
   // fix all before production. Now it slow the develop speed.
   eslint: {

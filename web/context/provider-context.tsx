@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useContextSelector } from 'use-context-selector'
 import useSWR from 'swr'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import { useTranslation } from 'react-i18next'
 import {
@@ -151,7 +151,7 @@ export const ProviderContextProvider = ({
   const [isAllowTransferWorkspace, setIsAllowTransferWorkspace] = useState(false)
   const [isAllowPublishAsCustomKnowledgePipelineTemplate, setIsAllowPublishAsCustomKnowledgePipelineTemplate] = useState(false)
 
-  const fetchPlan = async () => {
+  const fetchPlan = useCallback(async () => {
     try {
       const data = await fetchCurrentPlanInfo()
       if (!data) {
@@ -191,7 +191,7 @@ export const ProviderContextProvider = ({
       setIsEducationWorkspace(false)
       setEnableReplaceWebAppLogo(false)
     }
-  }
+  }, [])
   useEffect(() => {
     fetchPlan()
   }, [])
@@ -233,33 +233,58 @@ export const ProviderContextProvider = ({
     }
   }, [providersData, t])
 
+  const providerValue = useMemo(() => ({
+    modelProviders: providersData?.data || [],
+    refreshModelProviders,
+    textGenerationModelList: textGenerationModelList?.data || [],
+    isAPIKeySet: !!textGenerationModelList?.data.some(model => model.status === ModelStatusEnum.active),
+    supportRetrievalMethods: supportRetrievalMethods?.retrieval_method || [],
+    plan,
+    isFetchedPlan,
+    enableBilling,
+    onPlanInfoChanged: fetchPlan,
+    enableReplaceWebAppLogo,
+    modelLoadBalancingEnabled,
+    datasetOperatorEnabled,
+    enableEducationPlan,
+    isEducationWorkspace,
+    isEducationAccount: educationAccountInfo?.is_student || false,
+    allowRefreshEducationVerify: educationAccountInfo?.allow_refresh || false,
+    educationAccountExpireAt: educationAccountInfo?.expire_at || null,
+    isLoadingEducationAccountInfo,
+    isFetchingEducationAccountInfo,
+    webappCopyrightEnabled,
+    licenseLimit,
+    refreshLicenseLimit: fetchPlan,
+    isAllowTransferWorkspace,
+    isAllowPublishAsCustomKnowledgePipelineTemplate,
+  }), [
+    providersData?.data,
+    refreshModelProviders,
+    textGenerationModelList?.data,
+    supportRetrievalMethods?.retrieval_method,
+    plan,
+    isFetchedPlan,
+    enableBilling,
+    fetchPlan,
+    enableReplaceWebAppLogo,
+    modelLoadBalancingEnabled,
+    datasetOperatorEnabled,
+    enableEducationPlan,
+    isEducationWorkspace,
+    educationAccountInfo?.is_student,
+    educationAccountInfo?.allow_refresh,
+    educationAccountInfo?.expire_at,
+    isLoadingEducationAccountInfo,
+    isFetchingEducationAccountInfo,
+    webappCopyrightEnabled,
+    licenseLimit,
+    isAllowTransferWorkspace,
+    isAllowPublishAsCustomKnowledgePipelineTemplate,
+  ])
+
   return (
-    <ProviderContext.Provider value={{
-      modelProviders: providersData?.data || [],
-      refreshModelProviders,
-      textGenerationModelList: textGenerationModelList?.data || [],
-      isAPIKeySet: !!textGenerationModelList?.data.some(model => model.status === ModelStatusEnum.active),
-      supportRetrievalMethods: supportRetrievalMethods?.retrieval_method || [],
-      plan,
-      isFetchedPlan,
-      enableBilling,
-      onPlanInfoChanged: fetchPlan,
-      enableReplaceWebAppLogo,
-      modelLoadBalancingEnabled,
-      datasetOperatorEnabled,
-      enableEducationPlan,
-      isEducationWorkspace,
-      isEducationAccount: educationAccountInfo?.is_student || false,
-      allowRefreshEducationVerify: educationAccountInfo?.allow_refresh || false,
-      educationAccountExpireAt: educationAccountInfo?.expire_at || null,
-      isLoadingEducationAccountInfo,
-      isFetchingEducationAccountInfo,
-      webappCopyrightEnabled,
-      licenseLimit,
-      refreshLicenseLimit: fetchPlan,
-      isAllowTransferWorkspace,
-      isAllowPublishAsCustomKnowledgePipelineTemplate,
-    }}>
+    <ProviderContext.Provider value={providerValue}>
       {children}
     </ProviderContext.Provider>
   )
